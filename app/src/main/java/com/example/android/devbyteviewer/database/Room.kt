@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright 2018, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,20 +32,20 @@ interface VideoDao {
 }
 
 @Database(entities = [DataBaseVideo::class], version = 1)
-abstract class VideoDataBase: RoomDatabase(){
+abstract class VideoDataBase: RoomDatabase() {
     abstract val videoDao: VideoDao
+}
 
-    private lateinit var INSTANCE: VideoDataBase
+private lateinit var INSTANCE: VideoDataBase
 
-    fun getDataBase(context: Context): VideoDataBase{
-        synchronized(VideoDataBase::class.java){
-            if (!::INSTANCE.isInitialized){
-                INSTANCE = Room.databaseBuilder(
-                    context,
-                    VideoDataBase::class.java,
-                    "videos").build()
-            }
+fun getDataBase(context: Context): VideoDataBase{
+    synchronized(VideoDataBase::class.java){
+        if (!::INSTANCE.isInitialized){
+            INSTANCE = Room.databaseBuilder(
+                context,
+                VideoDataBase::class.java,
+                "videos").build()
         }
-        return INSTANCE
     }
+    return INSTANCE
 }
